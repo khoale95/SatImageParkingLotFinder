@@ -16,6 +16,8 @@ Output: Initial output would be boolean values indicating whether or not the inp
 Slides on Caffe:
 http://tutorial.caffe.berkeleyvision.org/caffe-cvpr15-detection.pdf
 https://docs.google.com/presentation/d/1HxGdeq8MPktHaPb-rlmYYQ723iWzq9ur6Gjo71YiG0Y/edit#slide=id.gc2fcdcce7_216_438
+https://cs.nyu.edu/~yann/talks/lecun-ranzato-icml2013.pdf
+
 Video on Caffe:
 https://www.youtube.com/watch?v=rvMVqPsXL10
 ### Caffe Fast-RCNN: 
