@@ -13,7 +13,10 @@ Input: We expect input to be satellite images with specific dimension. The image
 Output: Initial output would be boolean values indicating whether or not the inputted images contain parking lots.
 
 ### Resources:
+Slides on Caffe:
 http://tutorial.caffe.berkeleyvision.org/caffe-cvpr15-detection.pdf
 https://docs.google.com/presentation/d/1HxGdeq8MPktHaPb-rlmYYQ723iWzq9ur6Gjo71YiG0Y/edit#slide=id.gc2fcdcce7_216_438
+Video on Caffe:
+https://www.youtube.com/watch?v=rvMVqPsXL10
 ### Caffe Fast-RCNN: 
 https://github.com/rbgirshick/caffe-fast-rcnn
