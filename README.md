@@ -20,3 +20,6 @@ Video on Caffe:
 https://www.youtube.com/watch?v=rvMVqPsXL10
 ### Caffe Fast-RCNN: 
 https://github.com/rbgirshick/caffe-fast-rcnn
+
+### Resources for deep learning:
+https://www.youtube.com/channel/UCeqlHZDmUEQQHYqnei8doYg/featured
