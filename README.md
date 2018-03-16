@@ -20,8 +20,12 @@ https://cs.nyu.edu/~yann/talks/lecun-ranzato-icml2013.pdf
 
 Video on Caffe:
 https://www.youtube.com/watch?v=rvMVqPsXL10
+
 ### Caffe Fast-RCNN: 
 https://github.com/rbgirshick/caffe-fast-rcnn
+
+### Caffe Faster-RCNN: 
+https://github.com/rbgirshick/py-faster-rcnn
 
 ### Resources for deep learning:
 https://www.youtube.com/channel/UCeqlHZDmUEQQHYqnei8doYg/featured
