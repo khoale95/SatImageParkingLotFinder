@@ -11,3 +11,9 @@ Stretch goals will be to do the exact same thing but detect whether or not the p
 ### Input and Output
 Input: We expect input to be satellite images with specific dimension. The images may or may not contain parking lots.
 Output: Initial output would be boolean values indicating whether or not the inputted images contain parking lots.
+
+### Resources:
+http://tutorial.caffe.berkeleyvision.org/caffe-cvpr15-detection.pdf
+https://docs.google.com/presentation/d/1HxGdeq8MPktHaPb-rlmYYQ723iWzq9ur6Gjo71YiG0Y/edit#slide=id.gc2fcdcce7_216_438
+### Caffe Fast-RCNN: 
+https://github.com/rbgirshick/caffe-fast-rcnn
