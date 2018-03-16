@@ -25,3 +25,6 @@ https://github.com/rbgirshick/caffe-fast-rcnn
 
 ### Resources for deep learning:
 https://www.youtube.com/channel/UCeqlHZDmUEQQHYqnei8doYg/featured
+
+### Fast R-CNN own data guide:
+https://github.com/deboc/py-faster-rcnn/tree/master/help
