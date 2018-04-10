@@ -32,6 +32,8 @@ def print_values(node):
     elif node.tag == "w":
         string += node.text + " "
     elif node.tag == "h":
+        if float(node.text) > 40:
+            print("You might want to check the labelling, height seems abnormally large.")
         string += node.text + " 1 "
     elif node.tag == "angle":
         string += str(round(180 - math.degrees(float(node.text)),6)) + "\n"
