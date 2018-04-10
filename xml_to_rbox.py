@@ -34,7 +34,7 @@ def print_values(node):
     elif node.tag == "h":
         string += node.text + " 1 "
     elif node.tag == "angle":
-        string += str(180 - round(math.degrees(float(node.text)),6)) + "\n"
+        string += str(round(180 - math.degrees(float(node.text)),6)) + "\n"
         
 def recur_node(node, f):
     '''
