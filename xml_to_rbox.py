@@ -57,17 +57,18 @@ def walkThrough ():
         the .rbox file format.
     '''
 
+    root = '.'
     for dirpath, dirnames, filenames in os.walk (root):
         for file in filenames:
             if file.endswith (".xml"):
                 try:
-                    root = ElementTree.parse(file).getroot()
+                    node_root = ElementTree.parse(file).getroot()
                 except:
                     print("Could not open xml file:" + file)
                     continue
                 global string
                 string = ''
-                recur_node(root, print_values)
+                recur_node(node_root, print_values)
                 file = open(os.path.splitext(file)[0] + ".rbox", "w")
                 file.write(string)
                 file.close
@@ -83,13 +84,13 @@ def main(fileName: str = None) -> None:
         walkThrough()
     else:
         try:
-            root = ElementTree.parse(fileName).getroot()
+            node_root = ElementTree.parse(fileName).getroot()
         except:
             print("Could not open xml file:" + fileName)
             return -1
         global string
         string = ''
-        recur_node(root, print_values)
+        recur_node(node_root, print_values)
         file = open(os.path.splitext(fileName)[0] + ".rbox", "w")
         file.write(string)
         file.close
