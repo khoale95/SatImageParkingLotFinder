@@ -2,10 +2,11 @@
     Converts any TIF files found in the directory and subdirectories that this script is executed
         in.
 
+    USAGE: 'python3 convert.py -f [jpeg | png]'
     NOTE: Generates files of the given format in the same directory as the original file.
 
     @authors    Patrick Jahnig (psj516@vt.edu), Thomas Wolfe (twolfe99@vt.edu)
-    @version    2018.04.05
+    @version    2018.04.18
 '''
 
 import os
@@ -46,6 +47,12 @@ GDAL_COMMAND    = "gdal_translate -scale_1 20 1463 -scale_2 114 1808 -scale_3 13
 file_type       = None
 
 def convertTifTo (file_type: File_Type, file_name: str) -> None:
+    '''
+        Converts the given TIF file to the given file format.
+
+        @param  file_type   - The file format to convert to \n
+        @param  file_name   - The TIF file to convert
+    '''
     type_str = file_type.__str__ ()
     conv_str = file_name.replace ("tif", type_str)
 
