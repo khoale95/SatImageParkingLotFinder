@@ -56,7 +56,7 @@ def generateArguments () -> None:
     '''
         Parses the arguments passed to the script, and sets fields appropriately.
 
-        @throws EnvironmentError if an argument couldn't be understood (i.e. file format was not understood.
+        @throws EnvironmentError if an argument couldn't be understood (i.e. file format was not understood).
     '''
 
     from sys import argv
