@@ -77,7 +77,7 @@ def generateArguments () -> None:
     else:
         raise EnvironmentError ("Filename must be specified with -f")
 
-def getCoordinates (dataset: gdal.Dataset, robndbox: etree.Element) -> list:
+def getCoordinates (dataset: gdal.Dataset, bndbox: etree.Element) -> list:
     '''
         Gets and converts the coordinates of the bounding box contained in the given tree
         element.
@@ -87,15 +87,15 @@ def getCoordinates (dataset: gdal.Dataset, robndbox: etree.Element) -> list:
 
         @return A list containing the converted coordinates of the bounding box
     '''
-    cx = float (robndbox [0].text)
-    cy = float (robndbox [1].text)
-    w = float (robndbox [2].text)
-    h = float (robndbox [3].text)
+    xmin = float (bndbox [0].text)
+    ymin = float (bndbox [1].text)
+    xmax = float (bndbox [2].text)
+    ymax = float (bndbox [3].text)
 
-    return [convertCoordinates (dataset, cx - w / 2, cy - h / 2),
-        convertCoordinates (dataset, cx + w / 2, cy - h / 2),
-        convertCoordinates (dataset, cx + w / 2, cy + h / 2),
-        convertCoordinates (dataset, cx - w / 2, cy + h / 2)]
+    return [convertCoordinates (dataset, xmin, ymin),
+        convertCoordinates (dataset, xmax, ymin),
+        convertCoordinates (dataset, xmax, ymax),
+        convertCoordinates (dataset, xmin, ymax)]
 
 def getOrigin (dataset: gdal.Dataset) -> [float, float]:
     '''
@@ -127,7 +127,7 @@ def main () -> None:
 
     rects = []
     for i in tree.getiterator ():
-        if i.tag == "robndbox":
+        if i.tag == "bndbox":
             rects.append (getCoordinates (data, i.getchildren ()))
 
     geojson = {
