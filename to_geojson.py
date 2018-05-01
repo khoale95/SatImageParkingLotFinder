@@ -1,14 +1,15 @@
-'''
+u'''
     Converts the given filename with associated XML and TIF files to a corresponding
         GeoJSON file.
 
-    USAGE: 'python3 to_geojson.py -f [filename]'
+    USAGE: 'python2 to_geojson.py -f [filename]'
     NOTE: Generates GeoJSON in the same directory as the original files.
 
     @author     Patrick Jahnig (psj516@vt.edu)
-    @version    2018.04.18
+    @version    2018.05.01
 '''
 
+from __future__ import absolute_import
 from sys import argv
 import json
 
@@ -17,28 +18,29 @@ from lxml import etree
 
 # http://www.gdal.org/index.html
 from osgeo import gdal
+from io import open
 
 file_name = None
 
-def appendFeature (geojson: dict, rect: list) -> None:
-    '''
+def appendFeature (geojson, rect):
+    u'''
         Appends a feature representing the given bounding box to the given
         dictionary.
 
         @param  geojson - The dictionary to append the new feature to \n
         @param  rect    - The list representing the bounding box (as x1, y1, x2, y2)
     '''
-    geojson ["features"].append ({
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [ rect ]
+    geojson [u"features"].append ({
+        u"type": u"Feature",
+        u"properties": {},
+        u"geometry": {
+            u"type": u"Polygon",
+            u"coordinates": [ rect ]
         }
     })
 
-def convertCoordinates (dataset : gdal.Dataset, x: float, y: float) -> [float, float]:
-    '''
+def convertCoordinates (dataset, x, y):
+    u'''
         Converts the given pixel coordinates to geographical coordinates using the given
         GDAL data set.
 
@@ -53,8 +55,8 @@ def convertCoordinates (dataset : gdal.Dataset, x: float, y: float) -> [float, f
 
     return x * pixel_size [0] + origin [0], y * pixel_size [1] + origin [1]
 
-def generateArguments () -> None:    
-    '''
+def generateArguments ():    
+    u'''
         Parses the program arguments to determine what file should be converted.
 
         @throws EnvironmentError if the argument couldn't be found / parsed
@@ -63,22 +65,22 @@ def generateArguments () -> None:
     args = {}
 
     while argv:
-        if argv [0][0] == "-":
+        if argv [0][0] == u"-":
             args [argv [0]] = argv [1]
 
         argv = argv [1:]
 
-    if "-f" in args:
-        arg = args ["-f"]
-        n = arg.rfind (".")
+    if u"-f" in args:
+        arg = args [u"-f"]
+        n = arg.rfind (u".")
 
         file_name = arg [:n] if n >= 0 else arg
 
     else:
-        raise EnvironmentError ("Filename must be specified with -f")
+        raise EnvironmentError (u"Filename must be specified with -f")
 
-def getCoordinates (dataset: gdal.Dataset, bndbox: etree.Element) -> list:
-    '''
+def getCoordinates (dataset, bndbox):
+    u'''
         Gets and converts the coordinates of the bounding box contained in the given tree
         element.
 
@@ -93,12 +95,13 @@ def getCoordinates (dataset: gdal.Dataset, bndbox: etree.Element) -> list:
     ymax = float (bndbox [3].text)
 
     return [convertCoordinates (dataset, xmin, ymin),
-        convertCoordinates (dataset, xmax, ymin),
+        convertCoordinates (dataset, xmin, ymax),
         convertCoordinates (dataset, xmax, ymax),
-        convertCoordinates (dataset, xmin, ymax)]
+        convertCoordinates (dataset, xmax, ymin),
+        convertCoordinates (dataset, xmin, ymin)]
 
-def getOrigin (dataset: gdal.Dataset) -> [float, float]:
-    '''
+def getOrigin (dataset):
+    u'''
         Returns the origin of the given GDAL data set.
 
         @param  dataset - The GDAL data set to get the origin (geographical coordinates) of
@@ -108,8 +111,8 @@ def getOrigin (dataset: gdal.Dataset) -> [float, float]:
     geotransform = dataset.GetGeoTransform ()
     return geotransform [0], geotransform [3]
 
-def getPixelSize (dataset: gdal.Dataset) -> [float, float]:
-    '''
+def getPixelSize (dataset):
+    u'''
         Returns the pixel size of each pixel in the given GDAL data set.
 
         @param  dataset - The GDAL data set to get the pixel size of
@@ -119,28 +122,28 @@ def getPixelSize (dataset: gdal.Dataset) -> [float, float]:
     geotransform = dataset.GetGeoTransform ()
     return geotransform [1], geotransform [5]
 
-def main () -> None:
+def main ():
     generateArguments ()
 
-    data = gdal.Open(file_name + ".tif", gdal.GA_ReadOnly)
-    tree = etree.parse (file_name + ".xml")
+    data = gdal.Open(file_name + u".tif", gdal.GA_ReadOnly)
+    tree = etree.parse (file_name + u".xml")
 
     rects = []
     for i in tree.getiterator ():
-        if i.tag == "bndbox":
+        if i.tag == u"bndbox":
             rects.append (getCoordinates (data, i.getchildren ()))
 
     geojson = {
-        "type": "FeatureCollection",
-        "name": file_name,
-        "features": []
+        u"type": u"FeatureCollection",
+        u"name": file_name,
+        u"features": []
     }
 
     for r in rects:
         appendFeature (geojson, r)
 
-    file = open (file_name + ".geojson", "w")
+    file = open (file_name + u".geojson", u"w")
     file.write (json.dumps (geojson))
 
-if __name__ == "__main__":
+if __name__ == u"__main__":
     main ()
