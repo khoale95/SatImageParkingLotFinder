@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/thomas/Documents/SatImageParkingLotFinder/training/model.ckpt-34546"
+all_model_checkpoint_paths: "/home/thomas/Documents/SatImageParkingLotFinder/training/model.ckpt-31472"
+all_model_checkpoint_paths: "/home/thomas/Documents/SatImageParkingLotFinder/training/model.ckpt-32241"
+all_model_checkpoint_paths: "/home/thomas/Documents/SatImageParkingLotFinder/training/model.ckpt-33010"
+all_model_checkpoint_paths: "/home/thomas/Documents/SatImageParkingLotFinder/training/model.ckpt-33778"
+all_model_checkpoint_paths: "/home/thomas/Documents/SatImageParkingLotFinder/training/model.ckpt-34546"
