@@ -73,6 +73,7 @@ Run: python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path
 The information is now formatted in the correct way to be passed to the neural network.
 
 B. Model Setup
+
 Locate a model you want to use on: https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
 
 Add the .config file to the training directory. We used faster_rcnn_resnet101_kitti.config. The model selected can differ based on training needs.
