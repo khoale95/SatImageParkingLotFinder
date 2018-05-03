@@ -16,23 +16,37 @@ Output: Initial output would be boolean values indicating whether or not the inp
 I. Software Installation
 
 A. Training model
+
 Install Cuda & cuDNN
+
 Cuda Installation Guide: https://docs.nvidia.com/cuda/cuda-installation-guide-linux/
+
 CuDNN Installation Guide: https://docs.nvidia.com/deeplearning/sdk/cudnn-install/
+
 Install Tensorflow
-Tensorflow Installation Instructions: https://www.tensorflow.org/install/ 
+
+Tensorflow Installation Instructions: https://www.tensorflow.org/install/
+
 Install Additional Python Dependencies:
+
 Install pillow, lxml, jupyter, matplotlib
+
 Retrieve & Make Tensorflow Models:
+
 Git clone the following repository: https://github.com/tensorflow/models
+
 If using Ubuntu navigate to models/research and execute command: protoc object_detection/protos/*.proto --python_out=. And export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+
 Retrieve Our Code:
+
 Git clone the following repository: https://github.com/khoale95/SatImageParkingLotFinder
 
 B. Labelling
+
 Follow the steps we detailed in the implementation section (Section V) for labelling data. The future work section details labelling rotated bounding boxes for use in the DRBox model.
 
 LabelImg: Download and use LabelImg at https://github.com/tzutalin/labelImg  
+
 roLabelImg: Download and use roLabelImg at https://github.com/cgvict/roLabelImg . For roLabelImg, you want to always use the rotating bounding box as the normal bounding boxes does not store an angle in the output XML file.
 
 II. Training on New Data
@@ -40,30 +54,51 @@ II. Training on New Data
 In order to train the object detection once information has been labeled using LabelImg a few steps must be taken.
 
 A. Data Manipulation
+
 Put LabelImg xml files into the bounding boxes folder.
+
 Put your JPEG’s into the images folder
+
 Run xml_to_csv.py
-Run splittraintest.py with the arguments of the csv file name and ratio of training to testing. For example python splittraintest.py data/parkinglot_labels.csv 0.8 will create a test and train split of the overall csv file with 80% of the training images being part of the training set.
+
+Run splittraintest.py with the arguments of the csv file name and ratio of training to testing. For example python
+splittraintest.py data/parkinglot_labels.csv 0.8 will create a test and train split of the overall csv file with 80% of the training images being part of the training set.
+
 Create tfrecords for use by the neural network
+
 Run: python generate_tfrecord.py --csv_input=data/train_labels.csv  --output_path=train.record
+
 Run: python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=test.record
+
 The information is now formatted in the correct way to be passed to the neural network.
 
 B. Model Setup
 Locate a model you want to use on: https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
+
 Add the .config file to the training directory. We used faster_rcnn_resnet101_kitti.config. The model selected can differ based on training needs.
+
 Once you have downloaded the config file you will need to adjust the necessary paths and parameters to your data. Reference faster_rcnn_resnet101_kitti.config in the repo as an example.
+
 If interested you can also acquire model checkpoints. To use these download the tar file and extract them in Tensorflow’s model/research/object_detection directory.
+
 In the training directory create an object-detection.pbtxt file. It should look something like:
+
  item {
+ 
      id: 1
+     
       name: 'parking lot'
+      
 }
 
 C. Running Model
+
 All setup has now been completed and training can begin
+
 To train navigate to models/research/object_detection and run python train.py --logtostderr  --train_dir=training/ --pipeline_config_path=training/faster_rcnn_resnet101_kitti.config
+
 To monitor the progress you can run tensorboard --logdir=’training’ from models/object_detection
+
 NOTE: The directory training is the one provided in our repository, your path to get there may have to have precursors. For example: /home/user/Documents/SatImageParkingLotFinder/training
 
 
